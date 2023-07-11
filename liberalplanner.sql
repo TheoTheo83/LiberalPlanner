@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `pathologies` (
   `Pathologie` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID_Pathologie`),
   KEY `ID_Patients` (`ID_Patients`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `pathologies`
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `DateNaissance` date DEFAULT NULL,
   `Age` int DEFAULT NULL,
   PRIMARY KEY (`ID_Patients`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `patients`
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `remarques` (
   `Remarque` text,
   PRIMARY KEY (`ID_Remarque`),
   KEY `ID_Patients` (`ID_Patients`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `remarques`
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `rendezvous` (
   `TarifPrestation` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`ID_RendezVous`),
   KEY `ID_Patients` (`ID_Patients`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `rendezvous`

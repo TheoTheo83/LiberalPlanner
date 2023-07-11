@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `parents` (
   `Nom` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID_Parent`),
   KEY `ID_Patients` (`ID_Patients`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `parents`

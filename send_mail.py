@@ -7,26 +7,36 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://mail.google.com/']
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 
-creds = None
-if os.path.exists('token.json'):
-    creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-# If there are no (valid) credentials available, let the user log in.
-if not creds or not creds.valid:
-    if creds and creds.expired and creds.refresh_token:
-        creds.refresh(Request())
-    else:
-        flow = InstalledAppFlow.from_client_secrets_file('Projet_Python/credantials.json', SCOPES)
-        creds = flow.run_local_server(port=0)
-    # Save the credentials for the next run
-    with open('token.json', 'w') as token:
-        token.write(creds.to_json())
+def authenticate_gmail():
+    SCOPES = ['https://mail.google.com/']
+    creds = None
+    
+    # Vérification de l'existence du fichier token.json
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    
+    # Si les informations d'identification ne sont pas valides, l'utilisateur doit se connecter
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('Projet_Python/credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        
+        # Sauvegarde des informations d'identification pour la prochaine exécution
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
 
-
-service = build('gmail', 'v1', credentials=creds)
-
+    # Création du service Gmail
+    service = build('gmail', 'v1', credentials=creds)
+    
+    return service
 
 def create_message(sender, to, subject, message_text):
     message = MIMEText(message_text)

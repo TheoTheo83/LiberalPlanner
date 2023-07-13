@@ -12,13 +12,18 @@ CREDENTIALS_FILE = 'credentials.json'
 
 def get_calendar_service():
    creds = None
+   
    # The file token.pickle stores the user's access and refresh tokens, and is
    # created automatically when the authorization flow completes for the first
    # time.
+
    if os.path.exists('token.pickle'):
        with open('token.pickle', 'rb') as token:
            creds = pickle.load(token)
+
    # If there are no (valid) credentials available, let the user log in.
+   # Si il n'y a pas de credentials valide, l'utilisateur es invité a se connecté
+
    if not creds or not creds.valid:
        if creds and creds.expired and creds.refresh_token:
            creds.refresh(Request())

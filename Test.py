@@ -1,4 +1,4 @@
-from Google import Create_Service
+from google import Create_Service
 CLIENT_SECRET_FILE = 'credentials.json'
 API_NAME = 'calendar'
 API_VERSION = 'V3'

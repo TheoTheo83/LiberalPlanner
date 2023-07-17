@@ -4,6 +4,16 @@ def main():
    service = get_calendar_service()
    # Call the Calendar API
    print('Getting list of calendars')
+#    calendar_list_entry = service.calendarList().get(calendarId='hr5aarphet90tvumauu9esupac@group.calendar.google.com').execute()
+#    print (calendar_list_entry['summary'])
+
+   calendar_list_entry = {
+    "id" : "TestTheo"
+    }
+   created_calendar_list_entry = service.calendarList().insert(body=calendar_list_entry).execute()
+   print (created_calendar_list_entry['summary'])
+
+
    calendars_result = service.calendarList().list().execute()
 
    calendars = calendars_result.get('items', [])

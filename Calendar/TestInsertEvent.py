@@ -1,4 +1,4 @@
-from cal_setup import get_calendar_service
+from SetupGoogle import get_calendar_service
 
 def InsertEvent():
     # Crée et ajoute à la liste d'agenda une nouvelle évènement

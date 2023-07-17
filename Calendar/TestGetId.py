@@ -1,4 +1,4 @@
-from cal_setup import get_calendar_service
+from SetupGoogle import get_calendar_service
 
 def GetEventId(event_title):
 

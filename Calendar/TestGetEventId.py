@@ -10,15 +10,22 @@ def GetEventId(event_title):
         # Obtenir la liste des événements du calendrier par default
         events = service.events().list(calendarId='primary').execute()
         
+        cpt = 0
         # Parcour les événements pour trouver l'ID de l'événement recherché
         for event in events['items']:
             if event['summary'] == event_title:
-                print(f"L'ID de l'événement '{event_title}' est : {event['id']}")
-        return event['id']
-        
-        # Si l'événement n'a pas été trouvé, renvoie None
-        print(f"L'événement '{event_title}' n'a pas été trouvé.")
-        return None
+                cpt+=1
+                if cpt < 2:
+                    print(f"L'ID de l'événement '{event_title}' est : {event['id']}")
+                else:
+                    print(f"L'ID de l'événement '{event_title}' est : {event['id']}")
+                    print(f"L'événement '{event_title}' existe plusieurs fois, présicer la recherche")
+                #return event['id']
+            else:
+                # Si l'événement n'a pas été trouvé, renvoie None
+                print(f"L'événement '{event_title}' n'a pas été trouvé.")
+                #return None
+            
     # Gère les exeptions
     except Exception as e:
         print(f"Une erreur s'est produite lors de la récupération de l'ID de l'événement : {e}")

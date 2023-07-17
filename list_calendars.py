@@ -7,11 +7,11 @@ def main():
 #    calendar_list_entry = service.calendarList().get(calendarId='hr5aarphet90tvumauu9esupac@group.calendar.google.com').execute()
 #    print (calendar_list_entry['summary'])
 
-   calendar_list_entry = {
-    "id" : "TestTheo"
-    }
-   created_calendar_list_entry = service.calendarList().insert(body=calendar_list_entry).execute()
-   print (created_calendar_list_entry['summary'])
+   # calendar_list_entry = {
+   #  "id" : "TestTheo"
+   #  }
+   # created_calendar_list_entry = service.calendarList().insert(body=calendar_list_entry).execute()
+   # print (created_calendar_list_entry['summary'])
 
 
    calendars_result = service.calendarList().list().execute()

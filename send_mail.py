@@ -7,11 +7,6 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 
 def authenticate_gmail():
     SCOPES = ['https://mail.google.com/']
@@ -55,4 +50,11 @@ def send_message(service, user_id, message):
     except Exception as error:
         print(error)
 
+def mailGeneric(sender, to, medecin, date, entreprise, nomPrenom):
+    subject = "Rappel de rendez-vous"
+    message_text = "Cher Dr."+ medecin +",\n\nVoici le récapitulatif des rendez-vous prévus pour demain :\n\n1. Patient: "+ nomPrenom +"\nDate: "+ date +"\nTéléphone: [Numéro de Téléphone du Patient 1]\n\n2. Patient: [Nom du Patient 2]\nDate: [Date du Rendez-vous 2]\nTéléphone: [Numéro de Téléphone du Patient 2]\n\n[Votre Nom/Organisation]"
+    service = authenticate_gmail()
+    message = create_message(sender, to, subject, message_text)
 
+    send_message(service, 'me', message)
+    

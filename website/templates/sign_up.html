@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Inscription{% endblock %}
+
+{% block content %}
+<form method="POST">
+   <h3 align="center">Sing Up</h3> 
+   <div class="form-group">
+        <label for="email">Address mail</label>
+        <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            name="email" 
+            placeholder="Entrez votre email"
+        >
+    
+    <div class="form-group">
+        <label for="prenom">Prenom</label>
+        <input 
+            type="text" 
+            class="form-control" 
+            id="prenom" 
+            name="prenom" 
+            placeholder="Entrez votre prenon"
+        >
+
+    <div class="form-group">
+        <label for="password1">Password</label>
+        <input 
+            type="password" 
+            class="form-control" 
+            id="password1" 
+            name="password1" 
+            placeholder="Entrez votre mot de pass"
+        >
+
+    <div class="form-group">
+        <label for="password2">Confirmer votre Password</label>
+        <input 
+            type="password" 
+            class="form-control" 
+            id="password2" 
+            name="password2" 
+            placeholder="confirmer votre mot de pass"
+        >
+   </div>
+   <br />
+   <button type="submit" class="btn btn-primary">sauvegarder</button>
+</form>
+{% endblock %}

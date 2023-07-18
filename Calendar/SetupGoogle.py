@@ -32,7 +32,7 @@ def get_calendar_service():
                CREDENTIALS_FILE, SCOPES)
            creds = flow.run_local_server(port=0)
 
-       # Save the credentials for the next run
+       # Sauvegarde du token pour le prochain lancement
        with open('token.pickle', 'wb') as token:
            pickle.dump(creds, token)
 

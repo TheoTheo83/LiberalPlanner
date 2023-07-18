@@ -17,14 +17,18 @@ def GetEventId(event_title):
                 cpt+=1
                 if cpt < 2:
                     print(f"L'ID de l'événement '{event_title}' est : {event['id']}")
+
                 else:
                     print(f"L'ID de l'événement '{event_title}' est : {event['id']}")
                     print(f"L'événement '{event_title}' existe plusieurs fois, présicer la recherche")
-                #return event['id']
+                    return None
+
             else:
                 # Si l'événement n'a pas été trouvé, renvoie None
                 print(f"L'événement '{event_title}' n'a pas été trouvé.")
-                #return None
+                return None
+        if cpt < 2 :
+            return event['id']
             
     # Gère les exeptions
     except Exception as e:

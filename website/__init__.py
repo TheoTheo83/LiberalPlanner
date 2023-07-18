@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from.models import User, Note
 
 db= SQLAlchemy()
 DB_NAME = "database.db"
@@ -17,7 +16,8 @@ def create_app():
 
     app.register_blueprint(views,url_prefix='/')
     app.register_blueprint(auth,url_prefix='/')
- 
+
+    from.models import User, Note
     return app
 
 def create_datebase(app):

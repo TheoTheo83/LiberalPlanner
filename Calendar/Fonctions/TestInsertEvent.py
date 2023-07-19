@@ -24,4 +24,4 @@ def InsertEvent(summary, location, description, sDateTime, eDateTime):
     print(f'Événement créé: {event.get("htmlLink")}')
 
 if __name__ == '__main__':
-   InsertEvent('Test', 'Marseille', 'C est un test Marseillais', '2023-07-17T10:00:00', '2023-07-17T12:00:00')
+   InsertEvent('Test', 'Marseille', 'C est un test Marseillais', '2023-07-18T18:00:00', '2023-07-18T19:00:00')

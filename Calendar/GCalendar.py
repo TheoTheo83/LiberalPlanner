@@ -211,8 +211,8 @@ def SuppEvent(event_title):
         service.events().delete(calendarId='primary', eventId=event_id).execute()
 
         # On informe l'utilisateur que l'événement à bien été supprimé
-        print(f"L'événement avec l'ID {event_id} a été supprimé avec succès.")
-        
+        print(f"L'événement {event_title} a été supprimé avec succès.")
+
     # On gére si une erreur s'est produite
     except Exception as e:
         print(f"Une erreur s'est produite lors de la suppression de l'événement : {e}")
@@ -221,17 +221,14 @@ def SuppEvent(event_title):
 ##### Fonction principale #####
 def main():
 
-    InsertEvent('Test', 'Marseille', 'C est un test Marseillais', '2023-07-18T18:00:00', '2023-07-18T19:00:00')
-    #SuppEvent('Test')
-    #EditEvent('TestAurel', 'Paris', 'Test de description du turfu','TEST', '2023-07-20T18:00:00', '2023-07-24T20:00:00')
-
     #Evenement = input("Tapez le nom de l'événement : ")
-    #GetEventDetails(Evenement)
-    #GetEventList(10)
-    
-    
 
-
+    # InsertEvent('Test', 'Marseille', 'C est un test Marseillais', '2023-07-18T18:00:00', '2023-07-18T19:00:00')
+    # GetEventDetails('Test')
+    # EditEvent('Test', 'Paris', 'Test de description du turfu','TestTheo', '2023-07-20T18:00:00', '2023-07-20T19:00:00')
+    # GetEventDetails('TestTheo')
+    # SuppEvent('TestTheo')
+    GetEventList(1) # Donne le prochain événements
 
 if __name__ == '__main__':
     main()

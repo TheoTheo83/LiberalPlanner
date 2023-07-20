@@ -4,7 +4,7 @@ import subprocess
 
 def openTex(templatFile):
     # Créez l'environnement de rendu avec le répertoire du script Python comme chemin pour les modèles
-    env = Environment(loader=FileSystemLoader("./"))
+    env = Environment(loader=FileSystemLoader("./"), block_start_string='{%', block_end_string='%}', variable_start_string='{{', variable_end_string='}}')
 
     # Chargez le modèle à partir de l'environnement
     template = env.get_template(templateFile)
@@ -12,13 +12,10 @@ def openTex(templatFile):
     return env, template
 
 
-
 def changeData(data, template_file):
-    #template, env = openTex()
-    env, template = openTex(templateFile)
+    env, template = openTex(template_file)
 
-    output = template.render(data)
-    #print(output)
+    output = template.render(data=data)  # Passer le dictionnaire 'data' en tant que contexte
     return output
 
 
@@ -35,11 +32,9 @@ def saveTex(output, outputFile):
 
 def convertTexToPdf(texFile):
 
-    template_content = texFile
-
     # Cette ligne lance la commande pdflatex convertis donc le fichier qu'on aura sélectionner
     # A SAVOIR QUE LE FICHIER .tex DOIT ÊTRE PRÉSENT DANS LE DOSSIER OU SE TROUVE LES SCRIPTS
-    subprocess.run(["pdflatex", "-output-directory=output", "--jobname=facture", "--interaction=batchmode"], input=template_content.encode())
+    subprocess.run(["pdflatex", "-output-directory=output", "--jobname=facture", "--interaction=batchmode"], input=texFile.encode())
 
 
 if __name__ == '__main__':
@@ -64,17 +59,20 @@ if __name__ == '__main__':
     "My greeting": "Bonjour,",
     "Example Project": "Facture",
     "Development": "Changement de pneu",
-    "1000.00": "500 €",
-    "1": "4"
+    "1000.00": "500.00",
+    "1": "4",
+    "My Closing": "Au revoir"
     }
 
     # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
     output = changeData(data,templateFile)
     #openTex(templateFile)
     
-    # Enregistrement du modèle mis à jour dans un fichier .tex
-    output_file = "output/facture.tex"
-    saveTex(output, output_file)
 
+
+    # Enregistrement du modèle mis à jour dans un fichier .tex
+    output_file = "factureBenoit.tex"
+    saveTex(output, output_file)
+    
     # Conversion du fichier .tex en PDF
     convertTexToPdf(output_file)

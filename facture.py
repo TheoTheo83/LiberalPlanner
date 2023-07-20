@@ -72,8 +72,6 @@ if __name__ == '__main__':
     output = changeData(data,templateFile)
     #openTex(templateFile)
     
-
-
     # Enregistrement du modèle mis à jour dans un fichier .tex
     output_file = "output/facture.tex"
     saveTex(output, output_file)

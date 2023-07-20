@@ -229,8 +229,8 @@ def main():
     # GetEventDetails('Test')
     # EditEvent('Test', 'Paris', 'Test de description du turfu','TestTheo', '2023-07-20T18:00:00', '2023-07-20T19:00:00')
     # GetEventDetails('TestTheo')
-    SuppEvent('Theo')
-    # GetEventList(10) # Donne le prochain événements
+    # SuppEvent('Theo')
+    GetEventList(10) # Donne le prochain événements
 
 if __name__ == '__main__':
     main()

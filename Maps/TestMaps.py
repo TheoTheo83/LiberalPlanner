@@ -46,9 +46,6 @@ def GetItineraire(Depart, Arrivee) :
 
     gmaps = googlemaps.Client(key=API_KEY)
 
-    # Convertir l'heure d'arrivée en objet datetime
-    if isinstance(arrival_time, str):
-        arrival_time = datetime.strptime(arrival_time, '%Y-%m-%d %H:%M:%S')
     
     # Obtenir les directions entre le point A (origin) et le point B (destination)
     directions_result = gmaps.directions(Depart, Arrivee ,mode="driving")
@@ -83,14 +80,14 @@ def main():
 
     #Réccupère le temp, la distance et le cout en essence d'un trajet de A à B
 
-    #Depart = "11 avenue de luminy, Marseille"
-    #Arrivee = "2772 montée du vieux camp, Le Castellet"
-    #GetItineraire(Depart, Arrivee)
+    Depart = "11 avenue de luminy, Marseille"
+    Arrivee = "2772 montée du vieux camp, Le Castellet"
+    GetItineraire(Depart, Arrivee)
 
 
     # Réccupère la latitude et longitude actuel, puis la converti en adresse
-    latitude, longitude = GetLocalisation()
-    GetAdresse(latitude, longitude)
+    #latitude, longitude = GetLocalisation()
+    #GetAdresse(latitude, longitude)
 
 
 if __name__ == '__main__':

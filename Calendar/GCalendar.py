@@ -44,6 +44,34 @@ def EditEvent(event_title, event_new_location, event_description,event_new_summa
     else:
         print("Aucun événement portant ce nom a été trouvé !")
 
+# Fonction qui réccupère l'ID d'un événement grace à son nom
+def GetEventId(event_title):
+
+    # Appel de l'API
+    service = get_calendar_service()
+
+    try:
+        # Obtenir la liste des événements du calendrier par default
+        events = service.events().list(calendarId='primary').execute()
+        
+        # Parcour les événements obtenu
+        for event in events['items']:
+            # Si le nom recherché correspond au nom de l'événement actuellement parcouru
+            if event['summary'] == event_title:
+                # Alors on renvoi l'ID de l'événement
+                return event['id']
+            # Si aucun événement ne porte ce nom
+            else:
+                # On renvoi None
+                return None
+            
+    # Gère les exeptions
+    except Exception as e:
+        # Informe l'utilisateur en cas d'erreur
+        print(f"Une erreur s'est produite lors de la récupération de l'ID de l'événement : {e}")
+        # Et renvoi None
+        return None
+
 # Réccupère les détails d'un évémenement grace à son ID
 def GetEventDetails(event_title):
 
@@ -105,34 +133,6 @@ def GetCalendarList():
 
        # On affiche le nom, l'id du calendrier. Et si c'est le calendrier par default
        print("%s\t%s\t%s" % (summary, id, primary))
-
-# Fonction qui réccupère l'ID d'un événement grace à son nom
-def GetEventId(event_title):
-
-    # Appel de l'API
-    service = get_calendar_service()
-
-    try:
-        # Obtenir la liste des événements du calendrier par default
-        events = service.events().list(calendarId='primary').execute()
-        
-        # Parcour les événements obtenu
-        for event in events['items']:
-            # Si le nom recherché correspond au nom de l'événement actuellement parcouru
-            if event['summary'] == event_title:
-                # Alors on renvoi l'ID de l'événement
-                return event['id']
-            # Si aucun événement ne porte ce nom
-            else:
-                # On renvoi None
-                return None
-            
-    # Gère les exeptions
-    except Exception as e:
-        # Informe l'utilisateur en cas d'erreur
-        print(f"Une erreur s'est produite lors de la récupération de l'ID de l'événement : {e}")
-        # Et renvoi None
-        return None
 
 # Réccupère la liste des 100 prochains événements
 def GetEventList(max_results):

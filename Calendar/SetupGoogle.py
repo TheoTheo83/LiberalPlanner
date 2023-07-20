@@ -8,7 +8,7 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-CREDENTIALS_FILE = 'credentials.json'
+CREDENTIALS_FILE = 'Calendar/credentials.json'
 
 def get_calendar_service():
    creds = None
@@ -32,7 +32,7 @@ def get_calendar_service():
                CREDENTIALS_FILE, SCOPES)
            creds = flow.run_local_server(port=0)
 
-       # Save the credentials for the next run
+       # Sauvegarde du token pour le prochain lancement
        with open('token.pickle', 'wb') as token:
            pickle.dump(creds, token)
 

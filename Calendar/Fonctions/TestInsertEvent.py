@@ -1,27 +1,27 @@
 from SetupGoogle import get_calendar_service
 
-def InsertEvent():
+def InsertEvent(summary, location, description, sDateTime, eDateTime):
     # Crée et ajoute à la liste d'agenda une nouvelle évènement
     service = get_calendar_service()
 
     # Informations sur l'événement que vous souhaitez insérer
     event = {
-        'summary': 'Test2',
-        'location': 'Marseille',
-        'description': 'C est un test Marseillais',
+        'summary': summary, # Titre de l'événement
+        'location': location, # Lieu de l'événement
+        'description': description, # Description de l'événement
         'start': {
-            'dateTime': '2023-07-17T10:00:00', # Heure de début de l'événement
+            'dateTime': sDateTime, # Heure de début de l'événement
             'timeZone': 'Europe/Paris',  # Fuseau horaire de l'événement
         },
         'end': {
-            'dateTime': '2023-07-17T12:00:00', # Heure de fin de l'événement
+            'dateTime': eDateTime, # Heure de fin de l'événement
             'timeZone': 'Europe/Paris',  # Fuseau horaire de l'événement
         },
     }
 
-    # Insertion de l'événement dans Google Agenda
+    # Insertion de l'événement dans Google Agenda dans l'agenda principal
     event = service.events().insert(calendarId='primary', body=event).execute()
     print(f'Événement créé: {event.get("htmlLink")}')
 
 if __name__ == '__main__':
-   InsertEvent()
+   InsertEvent('Test', 'Marseille', 'C est un test Marseillais', '2023-07-18T18:00:00', '2023-07-18T19:00:00')

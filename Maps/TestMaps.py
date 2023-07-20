@@ -80,14 +80,14 @@ def main():
 
     #Réccupère le temp, la distance et le cout en essence d'un trajet de A à B
 
-    Depart = "11 avenue de luminy, Marseille"
-    Arrivee = "2772 montée du vieux camp, Le Castellet"
-    GetItineraire(Depart, Arrivee)
+    #Depart = "11 avenue de luminy, Marseille"
+    #Arrivee = "2772 montée du vieux camp, Le Castellet"
+    #GetItineraire(Depart, Arrivee)
 
 
     # Réccupère la latitude et longitude actuel, puis la converti en adresse
-    #latitude, longitude = GetLocalisation()
-    #GetAdresse(latitude, longitude)
+    latitude, longitude = GetLocalisation()
+    GetAdresse(latitude, longitude)
 
 
 if __name__ == '__main__':

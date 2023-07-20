@@ -4,7 +4,7 @@ import subprocess
 
 def openTex(templatFile):
     # Créez l'environnement de rendu avec le répertoire du script Python comme chemin pour les modèles
-    env = Environment(loader=FileSystemLoader("./"), block_start_string='{%', block_end_string='%}', variable_start_string='{{', variable_end_string='}}')
+    env = Environment(loader=FileSystemLoader("./"),variable_start_string='**', variable_end_string='**')
 
     # Chargez le modèle à partir de l'environnement
     template = env.get_template(templateFile)
@@ -66,9 +66,6 @@ if __name__ == '__main__':
 
     # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
     output = changeData(data,templateFile)
-    #openTex(templateFile)
-    
-
 
     # Enregistrement du modèle mis à jour dans un fichier .tex
     output_file = "factureBenoit.tex"

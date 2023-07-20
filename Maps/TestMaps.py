@@ -9,13 +9,22 @@ API_KEY = 'AIzaSyDahWp0ymxC_6E6sFcv5ih-9zB5xvui0OI'
 PRIX_ESSENCE = 1.90 # En €
 CONSOMMATION_VOITURE = 7/100 # xL/100km
 
-
+# Fonction qui réccupère l'adresse correspondant à une longitude et une latitude
 def GetAdresse(latitude, longitude):
+
+    # Démarre le service de localisation
     geolocator = Nominatim(user_agent="myGeocoder")
+
+    # Recherche l'adressse avec la latitude et longitude
     location = geolocator.reverse(f"{latitude}, {longitude}", exactly_one=True)
+
+    # Si une adresse à été trouvé
     if location:
+        # On affiche l'adresse
         print(f"Adresse : {location}")
+        # Et on la renvoi
         return location.address
+    
     else:
         print("Impossible d'obtenir l'adresse.")
         return None
@@ -37,9 +46,6 @@ def GetItineraire(Depart, Arrivee) :
 
     gmaps = googlemaps.Client(key=API_KEY)
 
-    # Convertir l'heure d'arrivée en objet datetime
-    if isinstance(arrival_time, str):
-        arrival_time = datetime.strptime(arrival_time, '%Y-%m-%d %H:%M:%S')
     
     # Obtenir les directions entre le point A (origin) et le point B (destination)
     directions_result = gmaps.directions(Depart, Arrivee ,mode="driving")
@@ -72,12 +78,15 @@ def GetItineraire(Depart, Arrivee) :
 ##### Fonction principale #####
 def main():
 
+    #Réccupère le temp, la distance et le cout en essence d'un trajet de A à B
+
     #Depart = "11 avenue de luminy, Marseille"
     #Arrivee = "2772 montée du vieux camp, Le Castellet"
     #GetItineraire(Depart, Arrivee)
 
-    latitude, longitude = GetLocalisation()
 
+    # Réccupère la latitude et longitude actuel, puis la converti en adresse
+    latitude, longitude = GetLocalisation()
     GetAdresse(latitude, longitude)
 
 

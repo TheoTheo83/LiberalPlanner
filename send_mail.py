@@ -52,7 +52,7 @@ def send_message(service, user_id, message):
 
 def mailGeneric(sender, to, medecin, date, entreprise, nomPrenom):
     subject = "Rappel de rendez-vous"
-    message_text = "Cher Dr."+ medecin +",\n\nVoici le récapitulatif des rendez-vous prévus pour demain :\n\n1. Patient: "+ nomPrenom +"\nDate: "+ date +"\nTéléphone: [Numéro de Téléphone du Patient 1]\n\n2. Patient: [Nom du Patient 2]\nDate: [Date du Rendez-vous 2]\nTéléphone: [Numéro de Téléphone du Patient 2]\n\n[Votre Nom/Organisation]"
+    message_text = "Cher Dr."+ medecin +",\n\nVoici le récapitulatif des rendez-vous prévus pour demain :\n\n1. Patient: "+ nomPrenom +"\nDate: "+ date +"\nTéléphone: [Numéro de Téléphone du Patient 1]\n\n2. Patient: [Nom du Patient 2]\nDate: [Date du Rendez-vous 2]\nTéléphone: [Numéro de Téléphone du Patient 2]\n\n[Votre Nom]"
     service = authenticate_gmail()
     message = create_message(sender, to, subject, message_text)
 

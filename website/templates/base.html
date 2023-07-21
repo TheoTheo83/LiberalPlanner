@@ -27,18 +27,33 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class ="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          {% if user.is_authenticated %}
-            <a class="nav-item nav-link" id="home" href="/">Page d'acceuil</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Deconnection</a>
-          {% else %}
-            <a class="nav-item nav-link" id="login" href="/login">Connection</a>
-            <a class="nav-item nav-link" id="signUp" href="/sign-up">Inscription</a>
-          {% endif %}
-         
-        </div>
-      </div>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto"> 
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" id="home" href="/">Page d'accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="patient" href="/patient">Ajouter un Patient</a>
+                </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" id="logout" href="/logout">Déconnexion</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" id="login" href="/login">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="signUp" href="/sign-up">Inscription</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
 
     </nav>
 
@@ -98,7 +113,17 @@
         {
           window.location.href = "/";
         });
-      }     
+      }  
+      
+      function deletePatient(patientId) {
+      fetch("/delete-patient", {
+        method: "POST",
+        body: JSON.stringify({ patientId: patientId }),
+      }).then((_res) => {
+        window.location.href = "/"; // Vous pouvez rediriger vers une autre page après la suppression si nécessaire.
+      });
+    }
+    
     </script>
 {% endblock %}
 

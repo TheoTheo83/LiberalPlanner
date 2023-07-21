@@ -1,52 +1,62 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-    {% for note in user.notes %}
-        <li class="list-group-item">{{ note.data }}
-            <button type="button" class="close" onclick="deleteNote({{note.id}})">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </li>
-    {% endfor %}
-</ul>
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
-    <br />
-    <div align="center">
-        <button type="submit" class="btn btn-primary">ajouter une note </button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Patients</h1>
+            {% if patients %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Date de naissance</th>
+                            <th>Âge</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                            <tr>
+                                <td>{{ patient.Nom }}</td>
+                                <td>{{ patient.Prenom }}</td>
+                                <td>{{ patient.DateNaissance }}</td>
+                                <td>{{ patient.Age }} ans</td>
+                                <td>
+                                    <button type="button" class="close" onclick="deletePatient({{ patient.ID_Patients }})">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Il n'y a pas de patient enregistré.</p>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <h1>Notes</h1>
+            <ul class="list-group list-group-flush" id="notes">
+                {% for note in user.notes %}
+                    <li class="list-group-item">{{ note.data }}
+                        <button type="button" class="close" onclick="deleteNote({{note.id}})">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form method="POST">
+                <textarea name="note" id="note" class="form-control"></textarea>
+                <br />
+                <div align="center">
+                    <button type="submit" class="btn btn-primary">ajouter une note</button>
+                </div>
+                <br />
+            </form>
+        </div>
     </div>
-</form>
-
-<h1 align="center">Patients</h1>
-
-<ul class="list-group list-group-flush" id="patients">
-    {% for patient in user.patients %}
-        <li class="list-group-item">{{ patient.nom }} {{ patient.prenom }}</li>
-    {% endfor %}
-</ul>
-
-<form method="POST">
-    <div class="form-group">
-        <label for="nom">Nom :</label>
-        <input type="text" class="form-control" id="nom" name="nom" required>
-    </div>
-    <div class="form-group">
-        <label for="prenom">Prénom :</label>
-        <input type="text" class="form-control" id="prenom" name="prenom" required>
-    </div>
-    <div class="form-group">
-        <label for="date_naissance">Date de naissance :</label>
-        <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
-    </div>
-    <div class="form-group">
-        <label for="age">Âge :</label>
-        <input type="number" class="form-control" id="age" name="age" >
-    </div>
-    <div align="center">
-        <button type="submit" class="btn btn-primary">Ajouter un patient</button>
-    </div>
-</form>
-
+</div>
 {% endblock %}

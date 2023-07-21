@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from datetime import datetime 
 from geopy.geocoders import Nominatim
 import googlemaps
 import geocoder

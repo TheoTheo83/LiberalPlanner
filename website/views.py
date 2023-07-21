@@ -95,31 +95,4 @@ def add_patient():
 @login_required
 def patient():
     patients = Patient.query.filter_by(user_id=current_user.id).all()
-
-    if request.method == 'POST':
-        patient_id = request.form.get('patient_id')
-        pathologie_data = request.form.get('pathologie')
-        remarque_data = request.form.get('remarque')
-
-        if patient_id:
-            patient = Patient.query.get(patient_id)
-
-            if pathologie_data:
-                new_pathologie = Pathologie(patient_id=patient_id, Pathologie=pathologie_data)
-                db.session.add(new_pathologie)
-
-            db.session.commit()
-            flash('Pathologie ajoutée avec succès.', category='success')
-            return redirect(url_for('views.patient'))
-
-    # Créer un dictionnaire pour stocker les pathologies et remarques associées à chaque patient
-    pathologies = {}
-
-    # Récupérer toutes les pathologies et remarques associées à chaque patient
-    for patient in patients:
-        pathologies[patient.ID_Patients] = Pathologie.query.filter_by(patient_id=patient.ID_Patients).all()
-
-    # Récupérer un patient pour l'affichage initial
-    patient = patients[0] if patients else None
-
-    return render_template("patient.html", user=current_user, patients=patients, pathologies=pathologies,patient=patient)
+    return render_template("patient.html", user=current_user, patients=patients, patient=patient)

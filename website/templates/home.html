@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h1>Patients</h1>
             {% if patients %}
                 <table class="table">
@@ -23,6 +23,11 @@
                                 <td>{{ patient.Prenom }}</td>
                                 <td>{{ patient.DateNaissance }}</td>
                                 <td>{{ patient.Age }} ans</td>
+                                <td>
+                                    <button type="button" class="close" onclick="deletePatient({{ patient.ID_Patients }})">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -31,7 +36,8 @@
                 <p>Il n'y a pas de patient enregistré.</p>
             {% endif %}
         </div>
-        <div class="col-md-6">
+        
+        <div class="col-md-4">
             <h1>Notes</h1>
             <ul class="list-group list-group-flush" id="notes">
                 {% for note in user.notes %}

@@ -37,6 +37,27 @@ def delete_note():
             db.session.commit()
     return jsonify({})
 
+@views.route('/delete-patient', methods=['POST'])
+@login_required
+def delete_patient():
+    patient_data = json.loads(request.data)
+    patient_id = patient_data['patientId']
+    patient = Patient.query.get(patient_id)
+
+    if patient:
+        if patient.user_id == current_user.id:
+            # Supprimer les pathologies liées au patient (s'il y en a)
+            Pathologie.query.filter_by(patient_id=patient_id).delete()
+
+            # Supprimer les remarques liées au patient (s'il y en a)
+            Remarque.query.filter_by(patient_id=patient_id).delete()
+
+            # Supprimer le patient lui-même
+            db.session.delete(patient)
+            db.session.commit()
+
+    return jsonify({})
+
 @views.route('/add-patient', methods=['POST'])
 @login_required
 def add_patient():

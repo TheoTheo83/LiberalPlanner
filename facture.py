@@ -15,14 +15,29 @@ def openTex(templatFile):
 def changeData(data, template_file):
     env, template = openTex(template_file)
 
+    developments = ""
+
+    for elt in data['developments']:
+        if developments != "":
+            developments +="}\Fee{"
+        developments += elt['description'] + "}{" + elt['amount']+ "}{" + elt['quantity']
+
+    data['developments'] = developments
+    print(data['developments'])
     output = template.render(data=data)  # Passer le dictionnaire 'data' en tant que contexte
     return output
 
 
 
 
-def showTex():
-    ...
+def addElement(data, description, amount, quantity):
+    new_element = {
+        "description": description,
+        "amount": amount,
+        "quantity": quantity
+    }
+    data["developments"].append(new_element)
+    return data
 
 
 def saveTex(output, outputFile):
@@ -57,19 +72,41 @@ if __name__ == '__main__':
     "Customer ZIP": "66",
     "Invoice no. 1": "00001",
     "My greeting": "Bonjour,",
-    "Example Project": "Facture",
-    "Development": "Changement de pneu",
-    "1000.00": "500.00",
-    "1": "4",
+    "Example Project": "Exemple",
+    "developments": [
+            {
+                "description": "Changement de pneu",
+                "amount": "500.00",
+                "quantity": "4"
+            
+            },
+            {
+                "description": "Mise au point équipement informatique",
+                "amount": "750.00",
+                "quantity": "1"
+            },
+            {
+                "description": "Installation solaire",
+                "amount": "1500.00",
+                "quantity": "1"
+            }
+        ],
     "My Closing": "Au revoir"
     }
 
+    output_file = "factureBenoit.tex"
     # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
-    output = changeData(data,templateFile)
+
+    # Ajout d'une nouvelle ligne de développement
+    data = addElement(data, "Réparation moteur", "800.00", "2")
+    #print(data)
+    # output_file = "factureBenoit.tex"
+
+    # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
+    output = changeData(data, templateFile)
 
     # Enregistrement du modèle mis à jour dans un fichier .tex
-    output_file = "factureBenoit.tex"
     saveTex(output, output_file)
-    
-    # Conversion du fichier .tex en PDF
+
+    # # Conversion du fichier .tex en PDF
     convertTexToPdf(output_file)

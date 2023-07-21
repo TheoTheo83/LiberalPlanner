@@ -4,7 +4,6 @@
 <h1 align="center">Patients</h1>  <!-- Titre principal de la page -->
 
 <!-- Formulaire pour ajouter un nouveau patient -->
-
 <form method="POST" action="{{ url_for('views.add_patient') }}">  
     <div class="form-group">
         <label for="nom">Nom :</label>
@@ -22,10 +21,17 @@
         <label for="age">Âge :</label>
         <input type="number" class="form-control" id="age" name="age" >
     </div>
+    <div class="form-group">
+        <label for="remarque">Remarque :</label>
+        <input type="text" class="form-control" id="remarque" name="remarque">
+    </div>
+    <div class="form-group">
+        <label for="pathologie">Pathologie :</label>
+        <input type="text" class="form-control" id="pathologie" name="pathologie">
+    </div>
     <div align="center">
         <button type="submit" class="btn btn-primary">Ajouter un patient</button>
     </div>
-
-
 </form>
+
 {% endblock %}

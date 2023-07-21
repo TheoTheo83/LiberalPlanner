@@ -17,6 +17,7 @@
                             <th>Prénom</th>
                             <th>Date de naissance</th>
                             <th>Âge</th>
+                            <th>Remarque</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,7 @@
                                 <td>{{ patient.Prenom }}</td>
                                 <td>{{ patient.DateNaissance }}</td>
                                 <td>{{ patient.Age }} ans</td>
+                                <td>{{ patient.remarques }} </td>
                                 <!-- Ajoute un bouton pour supprimer le patient en utilisant son ID -->
                                 <td>
                                     <button type="button" class="close" onclick="deletePatient({{ patient.ID_Patients }})">

@@ -31,11 +31,11 @@ class Pathologie(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.ID_Patients'))
     Pathologie = db.Column(db.String(255))
 
-# table pour les remarques
-class Remarque(db.Model):
-    ID_Remark = db.Column(db.Integer, primary_key=True)
-    Remarque = db.Column(db.String(1000))
-    patient_id = db.Column(db.Integer, db.ForeignKey('patient.ID_Patients'))
+# table pour les rendez-vous
+class Rdv(db.Model):
+    id_rdv = db.Column(db.Integer, primary_key=True)
+    jourRdv = db.Column(db.Date(), nullable=False)
+    ID_Patients = db.Column(db.Integer, db.ForeignKey('patient.ID_Patients'))  # Clé étrangère vers les patients
 
 # table pour les patients
 class Patient(db.Model):
@@ -44,14 +44,9 @@ class Patient(db.Model):
     Nom = db.Column(db.String(255))
     DateNaissance = db.Column(db.Date)
     Age = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Clé étrangère vers les utilisateurs
-
-    parents = db.relationship('Parent', backref='patient')  # Relation avec les parents
-    pathologies = db.relationship('Pathologie', backref='patient')  # Relation avec les pathologies
-    remarques = db.relationship('Remarque', backref='patient')  # Relation avec les remarques
-
-# table pour les rendez-vous
-class rdv(db.Model):
-    id_rdv = db.Column(db.Integer, primary_key=True)
-    jourRdv = db.Column(db.Date(), nullable=False)
-    ID_Patients = db.Column(db.Integer, db.ForeignKey('patient.ID_Patients'))  # Clé étrangère vers les patients
+    remarques = db.Column(db.String(1000)) 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
+    pathologies = db.relationship('Pathologie', backref='patient')
+    parents = db.relationship('Parent', backref='patient')
+    rdvs = db.relationship('Rdv', backref='patient')

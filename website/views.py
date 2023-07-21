@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Note, Patient, Pathologie, Remarque
+from .models import Note, Patient, Pathologie
 from . import db
 import json
 from datetime import datetime
@@ -15,12 +15,12 @@ def home():
     if request.method == 'POST':
         note = request.form.get('note')
         if len(note) < 1:
-            flash('note trop petite', category='error')
+            flash('Note trop petite', category='error')
         else:
             new_note = Note(data=note, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
-            flash('note cree', category='success')
+            flash('Note créée', category='success')
 
     # Récupérer la liste des patients associés à l'utilisateur actuellement connecté
     patients = Patient.query.filter_by(user_id=current_user.id).all()
@@ -52,9 +52,6 @@ def delete_patient():
             # Supprimer les pathologies liées au patient (s'il y en a)
             Pathologie.query.filter_by(patient_id=patient_id).delete()
 
-            # Supprimer les remarques liées au patient (s'il y en a)
-            Remarque.query.filter_by(patient_id=patient_id).delete()
-
             # Supprimer le patient lui-même
             db.session.delete(patient)
             db.session.commit()
@@ -79,11 +76,12 @@ def add_patient():
         date_naissance = None
 
     age = request.form.get('age')
+    remarque= request.form.get('remarque')
 
     if len(nom) < 1 or len(prenom) < 1 or (date_naissance_str and len(date_naissance_str) == 0) or (date_naissance_str and len(age) < 1):
         flash('Veuillez remplir tous les champs du formulaire.', category='error')
     else:
-        new_patient = Patient(Nom=nom, Prenom=prenom, DateNaissance=date_naissance, Age=age, user_id=current_user.id)
+        new_patient = Patient(Nom=nom, Prenom=prenom, DateNaissance=date_naissance, Age=age,remarques=remarque, user_id=current_user.id)
         db.session.add(new_patient)
         db.session.commit()
         flash('Patient ajouté avec succès.', category='success')
@@ -95,28 +93,31 @@ def add_patient():
 @login_required
 def patient():
     patients = Patient.query.filter_by(user_id=current_user.id).all()
-    pathologies = {}
-    remarques = {}
-    for patient in patients:
-        pathologies[patient.ID_Patients] = Pathologie.query.filter_by(patient_id=patient.ID_Patients).all()
-        remarques[patient.ID_Patients] = Remarque.query.filter_by(patient_id=patient.ID_Patients).all()
 
     if request.method == 'POST':
         patient_id = request.form.get('patient_id')
         pathologie_data = request.form.get('pathologie')
         remarque_data = request.form.get('remarque')
 
-        if patient_id and pathologie_data:
-            new_pathologie = Pathologie(patient_id=patient_id, Pathologie=pathologie_data)
-            db.session.add(new_pathologie)
+        if patient_id:
+            patient = Patient.query.get(patient_id)
 
-        if patient_id and remarque_data:
-            new_remarque = Remarque(patient_id=patient_id, Remarque=remarque_data)
-            db.session.add(new_remarque)
+            if pathologie_data:
+                new_pathologie = Pathologie(patient_id=patient_id, Pathologie=pathologie_data)
+                db.session.add(new_pathologie)
 
-        db.session.commit()
-        flash('Pathologie et/ou remarque ajoutée avec succès.', category='success')
-        return redirect(url_for('views.patient'))
+            db.session.commit()
+            flash('Pathologie ajoutée avec succès.', category='success')
+            return redirect(url_for('views.patient'))
 
+    # Créer un dictionnaire pour stocker les pathologies et remarques associées à chaque patient
+    pathologies = {}
+
+    # Récupérer toutes les pathologies et remarques associées à chaque patient
+    for patient in patients:
+        pathologies[patient.ID_Patients] = Pathologie.query.filter_by(patient_id=patient.ID_Patients).all()
+
+    # Récupérer un patient pour l'affichage initial
     patient = patients[0] if patients else None
-    return render_template("patient.html", user=current_user, patients=patients, pathologies=pathologies, remarques=remarques, patient=patient)
+
+    return render_template("patient.html", user=current_user, patients=patients, pathologies=pathologies,patient=patient)

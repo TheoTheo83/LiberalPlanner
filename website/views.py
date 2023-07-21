@@ -65,6 +65,7 @@ def add_patient():
     nom = request.form.get('nom')
     prenom = request.form.get('prenom')
     date_naissance_str = request.form.get('date_naissance')
+    remarque= request.form.get('remarque')
     
     if date_naissance_str:
         try:
@@ -78,8 +79,6 @@ def add_patient():
         date_naissance = None
         age = None
         
-    remarque= request.form.get('remarque')
-
     if len(nom) < 1 or len(prenom) < 1 or (date_naissance_str and len(date_naissance_str) == 0) or (date_naissance_str == 0):
         flash('Veuillez remplir tous les champs du formulaire.', category='error')
     else:
@@ -96,3 +95,21 @@ def add_patient():
 def patient():
     patients = Patient.query.filter_by(user_id=current_user.id).all()
     return render_template("patient.html", user=current_user, patients=patients, patient=patient)
+
+@views.route('/add-pathologie/', methods=['GET'])
+@login_required
+def add_pathologie():
+    return render_template('pathologie.html', user=current_user)
+
+@views.route('/add-pathologie', methods=['POST'])
+@login_required
+def add_pathologie_post():
+    pathologie_data = request.form.get('pathologie')
+
+    if pathologie_data:
+        new_pathologie = Pathologie( Pathologie=pathologie_data)
+        db.session.add(new_pathologie)
+        db.session.commit()
+        flash('Pathologie ajoutée avec succès.', category='success')
+
+    return redirect(url_for('views.add_pathologie'))

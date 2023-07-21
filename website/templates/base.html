@@ -23,44 +23,52 @@
     <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="container d-flex justify-content-center"> <!-- Ajout de la classe "d-flex justify-content-center" pour centrer le contenu -->
 
-      <!-- Contenu de la barre de navigation -->
-      <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto">
-            <!-- Liens pour les utilisateurs connectés -->
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" id="home" href="/">Page d'accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="patient" href="/patient">Ajouter un Patient</a>
-                </li>
-            {% endif %}
-        </ul>
+        <!-- Titre "Liberal Planner" centré au milieu -->
+        <a class="navbar-brand mx-auto" href="/">Liberal Planner</a> <!-- Ajout de la classe "mx-auto" pour centrer le titre -->
 
-        <!-- Liens pour tous les utilisateurs (connectés et non connectés) -->
-        <ul class="navbar-nav">
-            <!-- Liens pour les utilisateurs connectés -->
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" id="user-name" href="#">Bonjour {{ user.prenom }}</a>
+        <!-- Bouton pour activer le menu déroulant sur les petits écrans -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenu de la barre de navigation -->
+        <div class="collapse navbar-collapse" id="navbar">
+          <ul class="navbar-nav mr-auto">
+              <!-- Liens pour les utilisateurs connectés -->
+              {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link" id="patient" href="/patient">Ajouter un Patient</a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link" id="patient" href="/add-pathologie">Pathologie</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="logout" href="/logout">Déconnexion</a>
-                </li>
-            <!-- Liens pour les utilisateurs non connectés -->
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" id="login" href="/login">Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="signUp" href="/sign-up">Inscription</a>
-                </li>
-            {% endif %}
-        </ul>
+              {% endif %}
+          </ul>
+
+          <!-- Liens pour tous les utilisateurs (connectés et non connectés) -->
+          <ul class="navbar-nav">
+              <!-- Liens pour les utilisateurs connectés -->
+              {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link" id="user-name" href="#">Bonjour {{ user.prenom }}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" id="logout" href="/logout">Déconnexion</a>
+                  </li>
+              <!-- Liens pour les utilisateurs non connectés -->
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link" id="login" href="/login">Connexion</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" id="signUp" href="/sign-up">Inscription</a>
+                  </li>
+              {% endif %}
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -107,6 +115,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+
 
     {% block javascript %}
     <script type="text/javascript">

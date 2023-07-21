@@ -69,16 +69,18 @@ def add_patient():
     if date_naissance_str:
         try:
             date_naissance = datetime.strptime(date_naissance_str, '%Y-%m-%d').date()
+            # Calculer l'âge à partir de la date de naissance et la date actuelle
+            age = (datetime.now().date() - date_naissance).days // 365
         except ValueError:
             flash('Format de date invalide. Utilisez le format AAAA-MM-JJ.', category='error')
             return redirect(url_for('views.home'))
     else:
         date_naissance = None
-
-    age = request.form.get('age')
+        age = None
+        
     remarque= request.form.get('remarque')
 
-    if len(nom) < 1 or len(prenom) < 1 or (date_naissance_str and len(date_naissance_str) == 0) or (date_naissance_str and len(age) < 1):
+    if len(nom) < 1 or len(prenom) < 1 or (date_naissance_str and len(date_naissance_str) == 0) or (date_naissance_str == 0):
         flash('Veuillez remplir tous les champs du formulaire.', category='error')
     else:
         new_patient = Patient(Nom=nom, Prenom=prenom, DateNaissance=date_naissance, Age=age,remarques=remarque, user_id=current_user.id)

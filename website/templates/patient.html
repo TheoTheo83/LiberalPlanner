@@ -1,9 +1,11 @@
 {% extends "base.html" %} {% block title %}Patient{% endblock %}
 
 {% block content %}
-<h1 align="center">Patients</h1>
+<h1 align="center">Patients</h1>  <!-- Titre principal de la page -->
 
-<form method="POST" action="{{ url_for('views.add_patient') }}">
+<!-- Formulaire pour ajouter un nouveau patient -->
+
+<form method="POST" action="{{ url_for('views.add_patient') }}">  
     <div class="form-group">
         <label for="nom">Nom :</label>
         <input type="text" class="form-control" id="nom" name="nom" required>

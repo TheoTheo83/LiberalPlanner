@@ -15,20 +15,22 @@
       crossorigin="anonymous"
     />
 
+    <!-- Modification du titre de l'onglet -->
     <title>{% block title %}Home{% endblock %}</title>  
   </head>
   <body>
+
+    <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Contenu de la barre de navigation -->
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav mr-auto"> 
+        <ul class="navbar-nav mr-auto">
+            <!-- Liens pour les utilisateurs connectés -->
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" id="home" href="/">Page d'accueil</a>
@@ -39,11 +41,14 @@
             {% endif %}
         </ul>
 
+        <!-- Liens pour tous les utilisateurs (connectés et non connectés) -->
         <ul class="navbar-nav">
+            <!-- Liens pour les utilisateurs connectés -->
             {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" id="logout" href="/logout">Déconnexion</a>
                 </li>
+            <!-- Liens pour les utilisateurs non connectés -->
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" id="login" href="/login">Connexion</a>
@@ -53,10 +58,10 @@
                 </li>
             {% endif %}
         </ul>
-    </div>
-
+      </div>
     </nav>
 
+    <!-- Messages flash (succès ou erreur) -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
@@ -77,7 +82,6 @@
           {% endif %}
         {% endfor %}
       {% endif %}
-
     {% endwith %}
 
     <div class="container">
@@ -101,31 +105,32 @@
       crossorigin="anonymous"
     ></script>
 
-  {% block javascript %}
+    {% block javascript %}
     <script type="text/javascript">
       function deleteNote(noteId) 
       {
         fetch("/delete-note", 
         {
-          method: "POST",
-          body: JSON.stringify({ noteId: noteId }),
-        }).then((_res) => 
+          method: "POST",                             // Envoi d'une requête POST au serveur
+          body: JSON.stringify({ noteId: noteId }),   // Convertir l'ID de la note en format JSON et l'envoyer dans le corps de la requête
+        }).then((_res) =>                             // Une fois que la requête est terminée
         {
-          window.location.href = "/";
+          window.location.href = "/";                 // Recharger la page home pour afficher les mises à jour de la liste des notes            
         });
       }  
       
-      function deletePatient(patientId) {
-      fetch("/delete-patient", {
-        method: "POST",
-        body: JSON.stringify({ patientId: patientId }),
-      }).then((_res) => {
-        window.location.href = "/"; // Vous pouvez rediriger vers une autre page après la suppression si nécessaire.
-      });
-    }
-    
-    </script>
-{% endblock %}
+      // Fonction pour supprimer un patient en utilisant son ID
+      // Même principe que la fonction deleteNote
 
+      function deletePatient(patientId) {
+        fetch("/delete-patient", {
+          method: "POST",
+          body: JSON.stringify({ patientId: patientId }),
+        }).then((_res) => {
+          window.location.href = "/"; // Vous pouvez rediriger vers une autre page après la suppression si nécessaire.
+        });
+      }
+    </script>
+    {% endblock %}
   </body>
 </html>

@@ -1,18 +1,19 @@
-from flask import Blueprint, render_template, request, flash, jsonify,redirect,url_for
-from flask_login import login_required,current_user
-from .models import Note, Patient,Pathologie,Remarque
-from . import db 
-import json 
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
+from flask_login import login_required, current_user
+from .models import Note, Patient, Pathologie, Remarque
+from . import db
+import json
 from datetime import datetime
 
-views = Blueprint('views',__name__)
+views = Blueprint('views', __name__)
 
+# Page d'accueil
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    # Gestion des notes
     if request.method == 'POST':
         note = request.form.get('note')
-
         if len(note) < 1:
             flash('note trop petite', category='error')
         else:
@@ -26,17 +27,19 @@ def home():
 
     return render_template("home.html", user=current_user, patients=patients)
 
+# Supprimer une note
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
-    note=json.loads(request.data)
-    noteId= note['noteId']
-    note=Note.query.get(noteId)
+    note_data = json.loads(request.data)
+    note_id = note_data['noteId']
+    note = Note.query.get(note_id)
     if note:
-        if note.user_id == current_user.id :
+        if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
     return jsonify({})
 
+# Supprimer un patient
 @views.route('/delete-patient', methods=['POST'])
 @login_required
 def delete_patient():
@@ -58,6 +61,7 @@ def delete_patient():
 
     return jsonify({})
 
+# Ajouter un patient
 @views.route('/add-patient', methods=['POST'])
 @login_required
 def add_patient():
@@ -65,7 +69,6 @@ def add_patient():
     prenom = request.form.get('prenom')
     date_naissance_str = request.form.get('date_naissance')
     
-
     if date_naissance_str:
         try:
             date_naissance = datetime.strptime(date_naissance_str, '%Y-%m-%d').date()
@@ -80,14 +83,14 @@ def add_patient():
     if len(nom) < 1 or len(prenom) < 1 or (date_naissance_str and len(date_naissance_str) == 0) or (date_naissance_str and len(age) < 1):
         flash('Veuillez remplir tous les champs du formulaire.', category='error')
     else:
-        new_patient = Patient(Nom=nom, Prenom=prenom, DateNaissance=date_naissance, Age=age, user_id=current_user.id)  # Assurez-vous d'inclure user_id ici
+        new_patient = Patient(Nom=nom, Prenom=prenom, DateNaissance=date_naissance, Age=age, user_id=current_user.id)
         db.session.add(new_patient)
         db.session.commit()
         flash('Patient ajouté avec succès.', category='success')
 
     return redirect(url_for('views.home'))
 
-
+# Gérer les patients et leurs informations
 @views.route('/patient', methods=['GET', 'POST'])
 @login_required
 def patient():
@@ -114,6 +117,6 @@ def patient():
         db.session.commit()
         flash('Pathologie et/ou remarque ajoutée avec succès.', category='success')
         return redirect(url_for('views.patient'))
+
     patient = patients[0] if patients else None
     return render_template("patient.html", user=current_user, patients=patients, pathologies=pathologies, remarques=remarques, patient=patient)
-

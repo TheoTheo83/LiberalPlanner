@@ -1,12 +1,15 @@
-{% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% extends "base.html" %} <!-- Définit que ce fichier hérite du contenu de base.html -->
 
-{% block content %}
+{% block title %}Home{% endblock %} <!-- Titre de la page qui sera affiché dans l'onglet du navigateur -->
+
+{% block content %} <!-- Début du bloc de contenu spécifique à cette page -->
+
 <div class="container">
     <div class="row">
         <div class="col-md-8">
             <h1>Patients</h1>
             {% if patients %}
+                <!-- Affiche la liste des patients sous forme de tableau -->
                 <table class="table">
                     <thead>
                         <tr>
@@ -18,14 +21,16 @@
                     </thead>
                     <tbody>
                         {% for patient in patients %}
+                            <!-- Affiche les détails de chaque patient -->
                             <tr>
                                 <td>{{ patient.Nom }}</td>
                                 <td>{{ patient.Prenom }}</td>
                                 <td>{{ patient.DateNaissance }}</td>
                                 <td>{{ patient.Age }} ans</td>
+                                <!-- Ajoute un bouton pour supprimer le patient en utilisant son ID -->
                                 <td>
                                     <button type="button" class="close" onclick="deletePatient({{ patient.ID_Patients }})">
-                                        <span aria-hidden="true">&times;</span>
+                                        <span aria-hidden="true">&times;</span> <!-- Affiche une croix -->
                                     </button>
                                 </td>
                             </tr>
@@ -33,6 +38,7 @@
                     </tbody>
                 </table>
             {% else %}
+                <!-- Message affiché s'il n'y a aucun patient enregistré -->
                 <p>Il n'y a pas de patient enregistré.</p>
             {% endif %}
         </div>
@@ -41,22 +47,26 @@
             <h1>Notes</h1>
             <ul class="list-group list-group-flush" id="notes">
                 {% for note in user.notes %}
+                    <!-- Affiche la liste des notes de l'utilisateur sous forme de liste -->
                     <li class="list-group-item">{{ note.data }}
+                        <!-- Ajoute un bouton pour supprimer la note en utilisant son ID -->
                         <button type="button" class="close" onclick="deleteNote({{note.id}})">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span> 
                         </button>
                     </li>
                 {% endfor %}
             </ul>
             <form method="POST">
+                <!-- Formulaire pour ajouter une nouvelle note -->
                 <textarea name="note" id="note" class="form-control"></textarea>
                 <br />
                 <div align="center">
-                    <button type="submit" class="btn btn-primary">ajouter une note</button>
+                    <button type="submit" class="btn btn-primary">ajouter une note</button> <!-- Bouton pour ajouter une note -->
                 </div>
                 <br />
             </form>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} <!-- Fin du bloc de contenu spécifique à cette page -->
+

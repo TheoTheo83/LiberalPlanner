@@ -6,9 +6,12 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from datetime import datetime
+import time
+import schedule
 
 
-def authenticate_gmail():
+def authGmail():
     SCOPES = ['https://mail.google.com/']
     creds = None
     
@@ -21,7 +24,7 @@ def authenticate_gmail():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('Projet_Python/credentials.json', SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         
         # Sauvegarde des informations d'identification pour la prochaine exécution
@@ -33,28 +36,31 @@ def authenticate_gmail():
     
     return service
 
-def create_message(sender, to, subject, message_text):
+def createMessage(sender: str, to: str, subject: str, message_text: str):
     message = MIMEText(message_text)
+    # to = le destinataire 
     message['to'] = to
+    # l'adresse email qui envoie le mail
     message['from'] = sender
+    # le sujet du mail
     message['subject'] = subject
     return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
 
 
-def send_message(service, user_id, message):
+def sendMessage(service, user_id, message):
     try:
         message = (service.users().messages().send(userId=user_id, body=message)
                    .execute())
         print('Message Id: %s' % message['id'])
+        
         return message
     except Exception as error:
         print(error)
+        
 
-def mailGeneric(sender, to, medecin, date, entreprise, nomPrenom):
-    subject = "Rappel de rendez-vous"
-    message_text = "Cher Dr."+ medecin +",\n\nVoici le récapitulatif des rendez-vous prévus pour demain :\n\n1. Patient: "+ nomPrenom +"\nDate: "+ date +"\nTéléphone: [Numéro de Téléphone du Patient 1]\n\n2. Patient: [Nom du Patient 2]\nDate: [Date du Rendez-vous 2]\nTéléphone: [Numéro de Téléphone du Patient 2]\n\n[Votre Nom]"
-    service = authenticate_gmail()
-    message = create_message(sender, to, subject, message_text)
-
-    send_message(service, 'me', message)
+def mail(sender: str, to: str, subject:str , message_text:str ) -> None:
     
+    service = authGmail()
+    message = createMessage(sender, to, subject, message_text)
+
+    sendMessage(service, 'me', message)

@@ -1,10 +1,12 @@
-{% extends "base.html" %} {% block title %}Inscription{% endblock %}
+{% extends "base.html" %}
+{% block title %}Inscription{% endblock %}
 
 {% block content %}
 <form method="POST">
    <h3 align="center">Inscription</h3> 
+   <!-- Champ pour l'adresse email -->
    <div class="form-group">
-        <label for="email">Address mail</label>
+        <label for="email">Adresse mail</label>
         <input 
             type="email" 
             class="form-control" 
@@ -12,17 +14,21 @@
             name="email" 
             placeholder="Entrez votre email"
         >
-    
+   </div>
+   
+    <!-- Champ pour le prénom -->
     <div class="form-group">
-        <label for="prenom">Prenom</label>
+        <label for="prenom">Prénom</label>
         <input 
             type="text" 
             class="form-control" 
             id="prenom" 
             name="prenom" 
-            placeholder="Entrez votre prenon"
+            placeholder="Entrez votre prénom"
         >
+    </div>
 
+    <!-- Champ pour le mot de passe -->
     <div class="form-group">
         <label for="password1">Mot de passe</label>
         <input 
@@ -32,18 +38,22 @@
             name="password1" 
             placeholder="Entrez votre mot de passe"
         >
+    </div>
 
+    <!-- Champ pour confirmer le mot de passe -->
     <div class="form-group">
-        <label for="password2">Confirmer votre Mot de passe</label>
+        <label for="password2">Confirmer votre mot de passe</label>
         <input 
             type="password" 
             class="form-control" 
             id="password2" 
             name="password2" 
-            placeholder="confirmer votre mot de passe"
+            placeholder="Confirmer votre mot de passe"
         >
-   </div>
+    </div>
+
    <br />
+   <!-- Bouton pour soumettre le formulaire d'inscription -->
    <button type="submit" class="btn btn-primary">S'enregistrer</button>
 </form>
 {% endblock %}

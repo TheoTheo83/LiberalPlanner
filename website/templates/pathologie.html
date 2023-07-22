@@ -1,0 +1,27 @@
+<!-- pathologie.html -->
+{% extends "base.html" %}
+{% block title %}Ajouter une pathologie{% endblock %}
+
+{% block content %}
+<h1  align="center">Ajouter une pathologie</h1>
+
+<form method="POST" action="{{ url_for('views.add_pathologie_post') }}" >
+    <div class="form-group">
+        <label for="patient">Sélectionner un patient :</label>
+        <select name="patient" id="patient" class="form-control">
+            {% for patient in patients %}
+                <option value="{{ patient.ID_Patients }}">{{ patient.Nom }} {{ patient.Prenom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div align="center"></div>
+        <label for="pathologie">Ajouter une pathologie :</label>
+        <textarea type="text" class="form-control" name="pathologie" id="pathologie"></textarea>
+    </div>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Ajouter un patient</button>
+    </div>
+</form>
+
+{% endblock %}

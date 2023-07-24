@@ -8,7 +8,7 @@ API_KEY = 'AIzaSyDahWp0ymxC_6E6sFcv5ih-9zB5xvui0OI'
 PRIX_ESSENCE = 1.90 # En €
 CONSOMMATION_VOITURE = 7/100 # xL/100km
 
-# Fonction qui réccupère l'adresse correspondant à une longitude et une latitude
+# Fonction qui récupére l'adresse correspondant à une longitude et une latitude
 def GetAdresse(latitude, longitude):
 
     # Démarre le service de localisation
@@ -28,10 +28,16 @@ def GetAdresse(latitude, longitude):
         print("Impossible d'obtenir l'adresse.")
         return None
 
+# Fonction qui récupére la longitude et la latitude de la position actuelle
 def GetLocalisation():
-    pos = geocoder.ip('me')  # Utilise le service de géolocalisation du système d'exploitation
+
+    # Utilise le service de géolocalisation du système d'exploitation
+    pos = geocoder.ip('me')
+
     if pos.latlng is not None:
+
         latitude, longitude = pos.latlng
+
         if latitude and longitude:
             print(f"Latitude : {latitude}")
             print(f"Longitude : {longitude}")
@@ -72,7 +78,7 @@ def GetItineraire(Depart, Arrivee) :
         
         return duration, distance, cout
     else:
-        return None, None
+        return None
 
 ##### Fonction principale #####
 def main():

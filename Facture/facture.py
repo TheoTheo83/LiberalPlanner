@@ -34,7 +34,7 @@ def changeData(data: Dict, template_file):
 
 
 # Cette fonction permet de rajouter une ligne sur la facture
-def addElement(data:Dict, description: str, amount: int, quantity: int) -> Dict[str, int, int]:
+def addElement(data:Dict, description: str, amount: int, quantity: int) -> Dict:
 
     # un dictionnaire identique à ce qu'on peut trouver dans la data.
     new_element = {
@@ -80,40 +80,28 @@ if __name__ == '__main__':
     "My Street": "Marseille",
     "My Zip": "13011",
     "my@mail.com": "benoit.licatesi@gmail.com",
-    "Fnord Prefake": "Votre nom",
+    "Fnord Prefake": " LICATESI Benoit",
     "23. May 2009": "01. July 2023",
-    "Customer name": "Flash MCQUEEN",
-    "Customer street": "Radiator Springs",
+    "Customer name": "x",
+    "Customer street": "x",
     "Customer ZIP": "66",
     "Invoice no. 1": "00001",
-    "My greeting": "Bonjour,",
-    "Example Project": "Exemple",
+    "Example Project": "FACTURE",
     "developments": [
-            {
-                "description": "Changement de pneu",
-                "amount": "500.00",
-                "quantity": "4"
-            
-            },
             {
                 "description": "Mise au point équipement informatique",
                 "amount": "750.00",
                 "quantity": "1"
             },
-            {
-                "description": "Installation solaire",
-                "amount": "1500.00",
-                "quantity": "1"
-            }
         ],
-    "My Closing": "Au revoir"
+    "My Closing": "Cabinet pratique"
     }
 
     
     # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
 
     # Ajout d'une nouvelle ligne dans la description de facture
-    data = addElement(data, "Réparation moteur", "800.00", "2")
+    data = addElement(data, "Réparation ordinateur", "80.00", "2")
 
     # Utilisation de la fonction changeData pour remplacer les données dans le modèle LaTeX
     output = changeData(data, templateFile)

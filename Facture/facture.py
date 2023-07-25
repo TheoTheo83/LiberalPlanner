@@ -11,7 +11,7 @@ def openTex(templatFile) -> Tuple[Environment, Template]:
     
     # Chargez le modèle à partir de l'environnement, il doit forcément y avoir un dossier "/template" avec les modèles.tex dedans
     template = env.get_template(templateFile)
-    print(type(template))
+    
     return (env, template)
 
 

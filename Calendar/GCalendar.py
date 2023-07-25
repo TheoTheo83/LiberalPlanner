@@ -72,7 +72,7 @@ def GetEventId(event_title):
         # Et renvoi None
         return None
 
-# Réccupère les détails d'un évémenement grace à son ID
+# Récupére les détails d'un évémenement grace à son ID
 def GetEventDetails(event_title):
 
     # Appel de l'API Google
@@ -230,8 +230,8 @@ def main():
     # EditEvent('Test', 'Paris', 'Test de description du turfu','TestTheo', '2023-07-20T18:00:00', '2023-07-20T19:00:00')
     # GetEventDetails('TestTheo')
     # SuppEvent('Theo')
-    # GetEventList(10) # Donne le prochain événements
-    print(GetEventId("TheoLPB"))
+    #GetEventList(10) # Donne le prochain événements
+    print(GetEventId("Test"))
 
 if __name__ == '__main__':
     main()

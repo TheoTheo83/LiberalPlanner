@@ -225,13 +225,13 @@ def main():
 
     #Evenement = input("Tapez le nom de l'événement : ")
 
-    # InsertEvent('Test1', 'Marseille', 'Ceci est un test d\'événement à Marseille', '2023-07-26T18:00:00', '2023-07-26T19:00:00')
+    # InsertEvent('TestTheo', 'Marseille', 'Ceci est un test d\'événement à Marseille', '2023-07-26T18:00:00', '2023-07-26T19:00:00')
     # GetEventDetails('Test')
     # EditEvent('Test', 'Paris', 'Test de description du turfu','TestTheo', '2023-07-20T18:00:00', '2023-07-20T19:00:00')
     # GetEventDetails('TestTheo')
     # SuppEvent('Theo')
-    #GetEventList(10) # Donne le prochain événements
-    print(GetEventId("Test"))
+    # GetEventList(10) # Donne le prochain événements
+    print(GetEventId('Moi'))
 
 if __name__ == '__main__':
     main()

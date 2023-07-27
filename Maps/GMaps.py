@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 from geopy.geocoders import Nominatim
 import googlemaps
 import geocoder

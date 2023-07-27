@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import datetime
 from SetupGoogle import get_calendar_service
 
